@@ -2,46 +2,48 @@
 #include <string>
 #include <unordered_map>
 
-bool isMatch(string a, string b)
-{
-    unordered_map<char,int> x;
-    for(int i=0;i<a.length();i++)
-    {
-        x[a[i]]++;
-    }
-
-    for(int i=0;i<b.length();i++)
-    {
-        x[b[i]]--;
-    }
-
-    for(auto y = x.begin();y!=x.end();y++)
-    {
-        if(y->second!=0)
-            return false;
-    }
-    return true;
-
-
-}
-
 int countAnagrams(string pat, string txt)
 {
     int count = 0;
     int len1=txt.length();
     int len2=pat.length();
-    for(int i=0;i<len1-len2+1;i++)
+
+    if(len1 <= 0 || len2 <= 0 || len1 <len2)
+        return 0;
+
+    const int CHARS = 256;
+    array<char, CHARS> patA;
+    array<char, CHARS> txtA;
+    patA.fill(0);
+    txtA.fill(0);
+    int i=0;
+    for(;i<len2;i++)
     {
-        if(isMatch(txt.substr(i,len2), pat))
-            count++;
+        patA[CHARS-pat[i]]++;
+        txtA[CHARS-txt[i]]++;
+    }
+    if(patA==txtA)
+    {
+        count++;
+    }
+
+    for(;i<len1;i++)
+    {
+        txtA[CHARS-txt[i]]++;
+        txtA[CHARS-txt[i-len2]]--;
+
+        if(patA==txtA)
+    {
+        count++;
+    }
     }
     return count;
 }
 
 int main()
 {
-    string txt = "forxxorfxdofr";
-    string pat = "for";
+    string txt = "";
+    string pat = "";
 
     cout<<"Anagrams count: "<<countAnagrams(pat,txt)<<endl;
 }
