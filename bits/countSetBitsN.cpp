@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 
 
-//GFG-100
+//GFG-100 1
 
 
 // int findLogOfN(int n)
