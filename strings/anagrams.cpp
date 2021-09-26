@@ -42,8 +42,8 @@ int countAnagrams(string pat, string txt)
 
 int main()
 {
-    string txt = "";
-    string pat = "";
+    string txt = "forxxorfxdofr";
+    string pat = "for";
 
     cout<<"Anagrams count: "<<countAnagrams(pat,txt)<<endl;
 }
