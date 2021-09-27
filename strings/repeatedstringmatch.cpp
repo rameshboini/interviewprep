@@ -9,7 +9,6 @@ If no such solution exists, print -1.*/
 
 bool isSubstring(string A, string B)
 {
-    cout<<A<<endl<<B<<endl;
     int a = A.length();
     int b = B.length();
 
