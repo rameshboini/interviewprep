@@ -1,3 +1,6 @@
+/*Given a stack, the task is to sort it such that the top of the stack has the greatest element.*/
+
+//GFG-100 7
 #include "linkedlist.h"
 
 void push(Node **stack, int data)
