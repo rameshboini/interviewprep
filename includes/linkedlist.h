@@ -2,6 +2,11 @@
 
 class Node{
     public:
+    Node(int d){
+        data = d;
+        next = nullptr;
+    }
+    
     int data;
     Node* next;
 };

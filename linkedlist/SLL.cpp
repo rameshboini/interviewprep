@@ -2,14 +2,6 @@
 
 //GFG-100 5
 
-Node* createNode(int a)
-{
-    Node* n = new Node();
-    n->data=a;
-    n->next=nullptr;
-    return n;
-}
-
 void printMiddleOfSLL(Node* head)
 {
     if(!head){
@@ -28,12 +20,12 @@ void printMiddleOfSLL(Node* head)
 }
 
 int main(){
-    Node* head = createNode(1);
-    head->next = createNode(2);
-    head->next->next = createNode(3);
-    head->next->next->next = createNode(4);
-    head->next->next->next->next = createNode(5);
-    head->next->next->next->next->next = createNode(6);
+    Node* head = new Node(1);
+    head->next = new Node(2);
+    head->next->next = new Node(3);
+    head->next->next->next = new Node(4);
+    head->next->next->next->next = new Node(5);
+    head->next->next->next->next->next = new Node(6);
 
     printSLL(head);
 
