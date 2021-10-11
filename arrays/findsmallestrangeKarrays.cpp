@@ -7,75 +7,62 @@ using namespace std;
 #define N 5
 
 // array for storing the current index of list i
-int ptr[501];
-
 // This function takes an k sorted lists in the form of
 // 2D array as an argument. It finds out smallest range
 // that includes elements from each of the k lists.
-void findSmallestRange(int arr[][N], int n, int k)
+pair<int, int> findSmallestRange(int KSortedArray[][N], int n, int k)
 {
-	int i, minval, maxval, minrange, minel, maxel, flag, minind;
+	int min1 = INT_MAX, max1=INT_MIN, range=INT_MAX, lo=0, hi=0;
+	priority_queue<pair<int, pair<int,int>>,vector<pair<int, pair<int,int>>>,greater<pair<int, pair<int,int>>>> q;
+	for(int i=0;i<k;i++)
+	{
+		q.push({KSortedArray[i][0], {i,0}});
+		min1=min(min1, KSortedArray[i][0]);
+		max1=max(max1, KSortedArray[i][0]);
+	} 
+	while(true)
+	{
+		auto x = q.top();
+		q.pop();
+		int m = x.first;
 
-	// initializing to 0 index;
-	for (i = 0; i <= k; i++)
-		ptr[i] = 0;
-
-	minrange = INT_MAX;
-
-	while (1) {
-		// for maintaining the index of list containing the minimum element
-		minind = -1;
-		minval = INT_MAX;
-		maxval = INT_MIN;
-		flag = 0;
-
-		// iterating over all the list
-		for (i = 0; i < k; i++) {
-			// if every element of list[i] is traversed then break the loop
-			if (ptr[i] == n) {
-				flag = 1;
-				break;
-			}
-			// find minimum value among all the list elements pointing by the ptr[] array
-			if (ptr[i] < n && arr[i][ptr[i]] < minval) {
-				minind = i; // update the index of the list
-				minval = arr[i][ptr[i]];
-			}
-			// find maximum value among all the list elements pointing by the ptr[] array
-			if (ptr[i] < n && arr[i][ptr[i]] > maxval) {
-				maxval = arr[i][ptr[i]];
-			}
+		if(max1-m<range)
+		{
+			min1 = m;
+			range = max1-min1;
+			lo = min1;
+			hi = max1;
 		}
 
-		// if any list exhaust we will not get any better answer, so break the while loop
-		if (flag)
+		int a = x.second.first;
+		int b = x.second.second;
+
+		if(b == n-1)
 			break;
-
-		ptr[minind]++;
-
-		// updating the minrange
-		if ((maxval - minval) < minrange) {
-			minel = minval;
-			maxel = maxval;
-			minrange = maxel - minel;
+		
+		q.push({KSortedArray[a][b+1],{a,b+1}});
+		if(KSortedArray[a][b+1]>max1)
+		{
+			max1 = KSortedArray[a][b+1];
 		}
 	}
 
-	printf("The smallest range is [%d, %d]\n", minel, maxel);
+	return {lo,hi};
+
 }
 
 // Driver program to test above function
 int main()
 {
-	int arr[][N] = {
+	int KSortedArray[][N] = {
 		{ 4, 7, 9, 12, 15 },
 		{ 0, 8, 10, 14, 20 },
 		{ 6, 12, 16, 30, 50 }
 	};
 
-	int k = sizeof(arr) / sizeof(arr[0]);
+	int k = sizeof(KSortedArray) / sizeof(KSortedArray[0]);
 
-	findSmallestRange(arr, N, k);
+	findSmallestRange(KSortedArray, N, k);
 
 	return 0;
 }
